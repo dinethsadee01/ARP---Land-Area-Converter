@@ -6,10 +6,12 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import java.text.DecimalFormat
 
 /**
@@ -20,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     // UI Elements
     private lateinit var editTextInput: TextInputEditText
+    private lateinit var inputLayout: TextInputLayout
     private lateinit var radioGroupInputType: RadioGroup
     private lateinit var radioHectares: RadioButton
     private lateinit var radioAcres: RadioButton
@@ -39,6 +42,7 @@ class MainActivity : AppCompatActivity() {
 
         // Initialize UI elements
         editTextInput = findViewById(R.id.editTextInput)
+        inputLayout = findViewById(R.id.inputLayout)
         radioGroupInputType = findViewById(R.id.radioGroupInputType)
         radioHectares = findViewById(R.id.radioHectares)
         radioAcres = findViewById(R.id.radioAcres)
@@ -53,6 +57,21 @@ class MainActivity : AppCompatActivity() {
         // Set up click listener for convert button
         buttonConvert.setOnClickListener {
             convertLandArea()
+        }
+
+        // Add listener for radio button changes to reset results
+        radioGroupInputType.setOnCheckedChangeListener { _, _ ->
+            // Hide results when input type changes
+            cardResults.visibility = View.GONE
+        }
+        
+        // Add listener for clear button to reset results
+        inputLayout.setEndIconOnClickListener {
+            // Clear the input field (default behavior)
+            editTextInput.text?.clear()
+            
+            // Hide results when input is cleared
+            cardResults.visibility = View.GONE
         }
     }
 
@@ -115,5 +134,19 @@ class MainActivity : AppCompatActivity() {
         val formattedPerches = df.format(wholePerches)
 
         return "$wholeAcres acres, $wholeRoods roods, $formattedPerches perches"
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        // Show confirmation dialog
+        AlertDialog.Builder(this)
+            .setTitle("Exit Application")
+            .setMessage("Do you want to exit the application?")
+            .setPositiveButton("Yes") { _, _ ->
+                // If user clicks "Yes", proceed with normal back button behavior
+                super.onBackPressed()
+            }
+            .setNegativeButton("No", null) // If user clicks "No", dismiss dialog and continue
+            .show()
     }
 }
