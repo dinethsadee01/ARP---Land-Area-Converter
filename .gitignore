@@ -14,3 +14,7 @@
 .cxx
 local.properties
 gradle.properties
+*.jks
+/app/release/
+/**/*.apk
+/**/*.aab
