@@ -25,7 +25,7 @@
 ### Light Mode
 | Splash Screen | Conversion UI | Result Display | Exit |
 |---------------|----------------|----------------|----------------|
-| ![splash](screenshots/splash.jpg) | ![main](screenshots/main.jpg) | ![result](screenshots/result.jpg) | ![exit](screenshots/exitConf.jpg) |
+| ![splash](screenshots/splash.jpg) | ![main](screenshots/mainL.jpg) | ![result](screenshots/resultL.jpg) | ![exit](screenshots/exitConfL.jpg) |
 
 ---
 
