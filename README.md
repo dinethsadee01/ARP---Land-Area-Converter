@@ -17,10 +17,15 @@
 
 ## 📱 Screenshots
 
+### Dark Mode
 | Splash Screen | Conversion UI | Result Display | Exit |
 |---------------|----------------|----------------|----------------|
 | ![splash](screenshots/splash.jpg) | ![main](screenshots/main.jpg) | ![result](screenshots/result.jpg) | ![exit](screenshots/exitConf.jpg) |
 
+### Light Mode
+| Splash Screen | Conversion UI | Result Display | Exit |
+|---------------|----------------|----------------|----------------|
+| ![splash](screenshots/splash.jpg) | ![main](screenshots/main.jpg) | ![result](screenshots/result.jpg) | ![exit](screenshots/exitConf.jpg) |
 
 ---
 
