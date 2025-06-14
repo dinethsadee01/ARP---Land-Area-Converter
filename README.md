@@ -6,7 +6,7 @@
 
 ## 🚀 Features
 
-- 🔁 Convert from **Hectares** or **Acres**
+- 🔁 Convert both **Hectares** or **Acres**
 - 📐 Get values in **Acres, Roods, and Perches**
 - 🎯 Simple and accurate results
 - 🌿 Smooth splash screen and clean UI
@@ -16,17 +16,16 @@
 
 ## 📱 Screenshots
 
-| Splash Screen | Conversion UI | Result Display |
-|---------------|----------------|----------------|
-| ![splash](screenshots/splash.png) | ![main](screenshots/main.png) | ![result](screenshots/result.png) |
+| Splash Screen | Conversion UI | Result Display | Exit |
+|---------------|----------------|----------------|----------------|
+| ![splash](screenshots/splash.jpg) | ![main](screenshots/main.jpg) | ![result](screenshots/result.jpg) | ![exit](screenshots/exitConf.jpg) |
 
-> Upload your screenshots to the `screenshots` folder or update the paths accordingly.
 
 ---
 
 ## 📦 APK Download
 
-👉 [Download Latest APK](https://github.com/dinethsadee01/ARP---Land-Area-Converter/releases)
+⬇️ [Download Latest APK](https://github.com/dinethsadee01/ARP---Land-Area-Converter/releases/download/v1.0/ARP.apk)
 
 > Current Version: **v1.0**
 
