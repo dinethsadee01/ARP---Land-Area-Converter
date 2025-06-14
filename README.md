@@ -78,7 +78,7 @@ If you find any bugs or have feature suggestions, feel free to open an issue.
 
 ## 📜 License
 This project is licensed under the MIT License.
-See the [LICENSE]() file for details.
+See the [LICENSE](https://github.com/dinethsadee01/ARP---Land-Area-Converter/blob/master/LICENSE) file for details.
 
 ---
 
