@@ -1,6 +1,8 @@
 package com.landconverterapp
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.RadioButton
 import android.widget.RadioGroup
@@ -36,6 +38,10 @@ class MainActivity : AppCompatActivity() {
     private val ACRES_TO_ROODS = 4.0
     private val ROODS_TO_PERCHES = 40.0
 
+    // Constants for input validation
+    private val MAX_DIGITS_BEFORE_DECIMAL = 9
+    private val MAX_DIGITS_AFTER_DECIMAL = 9
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -53,6 +59,63 @@ class MainActivity : AppCompatActivity() {
 
         // Initially hide results
         cardResults.visibility = View.GONE
+
+        // Add input validation with TextWatcher
+        editTextInput.addTextChangedListener(object : TextWatcher {
+            // Store the previous valid input to restore if needed
+            private var previousValidInput = ""
+            private var isEditing = false
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Not used
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Not used
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if (isEditing || s == null) return
+
+                val input = s.toString()
+
+                // Allow empty string
+                if (input.isEmpty()) {
+                    previousValidInput = input
+                    return
+                }
+
+                // Check if it's a valid number format
+                if (input.matches(Regex("^\\d{0,9}(\\.\\d{0,9})?$"))) {
+                    // Valid input - store it
+                    previousValidInput = input
+                } else {
+                    // Invalid input - restore previous valid input
+                    isEditing = true
+                    s.replace(0, s.length, previousValidInput)
+                    isEditing = false
+
+                    // Show a message to the user
+                    if (input.contains(".")) {
+                        // Check if the issue is with digits after decimal
+                        val parts = input.split(".")
+                        if (parts.size > 1 && parts[1].length > MAX_DIGITS_AFTER_DECIMAL) {
+                            Toast.makeText(this@MainActivity,
+                                "Maximum $MAX_DIGITS_AFTER_DECIMAL decimal places allowed",
+                                Toast.LENGTH_SHORT).show()
+                        }
+                    } else if (input.length > MAX_DIGITS_BEFORE_DECIMAL) {
+                        // Issue with digits before decimal
+                        Toast.makeText(this@MainActivity,
+                            "Maximum $MAX_DIGITS_BEFORE_DECIMAL digits allowed",
+                            Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                // Hide results when input changes
+                cardResults.visibility = View.GONE
+            }
+        })
 
         // Set up click listener for convert button
         buttonConvert.setOnClickListener {
