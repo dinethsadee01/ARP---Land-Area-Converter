@@ -39,6 +39,12 @@
 
 ## 📄 Changelog
 
+### v1.1 – Bug Fix Update  
+- Improved input validation  
+- Restricted input to max 9 digits and 9 decimals  
+- Fixed incorrect conversions for large numbers  
+- Minor UI reliability improvements  
+
 ### v1.0 - Initial Release
 - Initial stable version
 - Hectare/acre input supported
