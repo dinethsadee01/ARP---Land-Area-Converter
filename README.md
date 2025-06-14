@@ -31,7 +31,7 @@
 
 ## 📦 APK Download
 
-⬇️ [Download Latest APK](https://github.com/dinethsadee01/ARP---Land-Area-Converter/releases/download/v1.0/ARP.apk)
+⬇️ [Download Latest APK](https://github.com/dinethsadee01/ARP---Land-Area-Converter/releases/download/v1.1/ARP.v1.1.apk)
 
 > Current Version: **v1.0**
 
