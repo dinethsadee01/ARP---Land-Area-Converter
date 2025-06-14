@@ -1,16 +1,17 @@
 # 🌍 Land Area Converter
 
-**Land Area Converter** is a simple, minimal, and user-friendly Android app that converts land area measurements between **Hectares**, **Acres**, **Roods**, and **Perches**.
+**Land Area Converter** is a simple, minimal, and user-friendly Android app that converts land area measurements both **Hectares** and **Acres** into **Acres**, **Roods**, and **Perches**.
 
 ---
 
 ## 🚀 Features
 
-- 🔁 Convert both **Hectares** or **Acres**
+- 🔁 Convert both **Hectares** and **Acres**
 - 📐 Get values in **Acres, Roods, and Perches**
 - 🎯 Simple and accurate results
 - 🌿 Smooth splash screen and clean UI
-- 🔒 Offline – works without internet
+- 🌗 Both dark and light mode support
+- 🔒 Fully offline – works without internet
 
 ---
 
