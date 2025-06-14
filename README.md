@@ -52,6 +52,24 @@
 
 ---
 
+## 🔧 Configuration
+Before building or running the project, create a gradle.properties file by copying the example provided:
+
+```bash
+cp gradle.properties.example gradle.properties
+```
+Then, fill in the required keystore and signing details:
+
+```bash
+KEYSTORE_FILE=your_release_key.jks
+KEYSTORE_PASSWORD=your_keystore_password
+KEY_ALIAS=your_key_alias
+KEY_PASSWORD=your_key_password
+```
+⚠️ Important: Never commit your gradle.properties file or any sensitive credentials to version control.
+
+---
+
 ## 📂 Project Structure
 
 ```bash
