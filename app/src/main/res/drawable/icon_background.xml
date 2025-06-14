@@ -1,0 +1,13 @@
+<!-- Rounded background for app icon on splash screen -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <!-- Light background with subtle shadow effect -->
+    <solid android:color="@android:color/white" />
+
+    <!-- Subtle border -->
+    <stroke
+        android:width="2dp"
+        android:color="#E8F5E8" />
+
+</shape>

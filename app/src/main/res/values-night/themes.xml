@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark theme -->
+    <style name="Theme.LandConverterApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/primary_green_light</item>
+        <item name="colorPrimaryDark">@color/primary_green</item>
+        <item name="colorAccent">@color/accent_color_light</item>
+        
+        <!-- Text colors -->
+        <item name="android:textColor">@color/text_color_dark_mode</item>
+        <item name="android:textColorSecondary">@color/text_secondary_dark_mode</item>
+        
+        <!-- Background colors -->
+        <item name="android:windowBackground">@color/background_dark</item>
+        <item name="android:colorBackground">@color/background_dark</item>
+        
+        <!-- Card backgrounds -->
+        <item name="cardBackgroundColor">@color/card_background_dark</item>
+        
+        <!-- Status bar color -->
+        <item name="android:statusBarColor">@color/primary_green_dark</item>
+    </style>
+</resources>

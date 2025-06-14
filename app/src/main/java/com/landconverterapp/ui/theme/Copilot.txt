@@ -1,0 +1,207 @@
+package com.landconverterapp
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
+import com.landconverterapp.ui.theme.LandConverterAppTheme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            LandConverterAppTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    LandConverterApp()
+                }
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun LandConverterApp() {
+    var inputValue by remember { mutableStateOf("") }
+    var isHectares by remember { mutableStateOf(true) }
+    var resultAcres by remember { mutableStateOf("") }
+    var resultRoods by remember { mutableStateOf("") }
+    var resultPerches by remember { mutableStateOf("") }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        Text(
+            text = "Land Area Converter",
+            style = MaterialTheme.typography.headlineMedium,
+            color = MaterialTheme.colorScheme.primary
+        )
+
+        // Unit selection
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
+            )
+        ) {
+            Column(
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Text(
+                    text = "Select Input Unit",
+                    style = MaterialTheme.typography.titleMedium
+                )
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        RadioButton(
+                            selected = isHectares,
+                            onClick = { isHectares = true }
+                        )
+                        Text("Hectares")
+                    }
+
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        RadioButton(
+                            selected = !isHectares,
+                            onClick = { isHectares = false }
+                        )
+                        Text("Acres")
+                    }
+                }
+            }
+        }
+
+        // Input field
+        OutlinedTextField(
+            value = inputValue,
+            onValueChange = {
+                // Only allow numeric input with up to 4 decimal places
+                if (it.isEmpty() || it.matches(Regex("^\\d*\\.?\\d{0,4}$"))) {
+                    inputValue = it
+                }
+            },
+            label = { Text("Enter Value") },
+            placeholder = { Text("0.0000") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+            modifier = Modifier.fillMaxWidth(),
+            trailingIcon = { Text(if (isHectares) "ha" else "ac") }
+        )
+
+        // Convert button
+        Button(
+            onClick = {
+                if (inputValue.isNotEmpty()) {
+                    try {
+                        val value = inputValue.toDouble()
+                        val result = convertLandArea(value, isHectares)
+                        resultAcres = result.first.toString()
+                        resultRoods = result.second.toString()
+                        resultPerches = result.third
+                    } catch (e: Exception) {
+                        // Handle error
+                    }
+                }
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp)
+        ) {
+            Text("CONVERT")
+        }
+
+        // Results
+        if (resultAcres.isNotEmpty()) {
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.7f)
+                )
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Text(
+                        text = "Result",
+                        style = MaterialTheme.typography.titleMedium
+                    )
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text("Acres:")
+                        Text(resultAcres)
+                    }
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text("Roods:")
+                        Text(resultRoods)
+                    }
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text("Perches:")
+                        Text(resultPerches)
+                    }
+
+                    Divider(modifier = Modifier.padding(vertical = 8.dp))
+
+                    Text(
+                        text = "${resultAcres}A ${resultRoods}R ${resultPerches}P",
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                }
+            }
+        }
+    }
+}
+
+fun convertLandArea(value: Double, isHectares: Boolean): Triple<Int, Int, String> {
+    // Conversion factors
+    val hectaresToAcres = 2.47105
+
+    // Convert to acres first
+    val acres = if (isHectares) value * hectaresToAcres else value
+
+    // Extract whole acres
+    val wholeAcres = acres.toInt()
+
+    // Calculate remaining area in roods (1 acre = 4 roods)
+    val remainingForRoods = (acres - wholeAcres) * 4
+    val wholeRoods = remainingForRoods.toInt()
+
+    // Calculate remaining area in perches (1 rood = 40 perches)
+    val remainingForPerches = (remainingForRoods - wholeRoods) * 40
+    val perchesFormatted = String.format("%.2f", remainingForPerches)
+
+    return Triple(wholeAcres, wholeRoods, perchesFormatted)
+}
